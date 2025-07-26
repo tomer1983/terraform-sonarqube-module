@@ -11,10 +11,14 @@ A comprehensive Terraform module for managing SonarQube resources through its AP
 - Quality Gates management
 - Project creation and configuration
 - User and group management
+- Portfolio management
 - Permission templates
 - Quality profiles
 - Webhooks configuration
 - Custom rules and metrics
+- Rich data sources for all SonarQube entities
+- Built-in monitoring and telemetry
+- Production-ready with full testing coverage
 
 ## Usage
 
@@ -67,6 +71,36 @@ provider "sonarqube" {
 }
 ```
 
+## Available Resources
+
+The provider supports managing the following resources:
+
+- `sonarqube_project` - Create and manage SonarQube projects
+- `sonarqube_qualitygate` - Define and configure quality gates
+- `sonarqube_user` - Manage user accounts
+- `sonarqube_group` - Handle user groups and permissions
+- `sonarqube_portfolio` - Organize projects into portfolios
+
+## Available Data Sources
+
+The provider includes comprehensive data sources:
+
+### Project Management
+- `sonarqube_project` - Query existing projects
+- `sonarqube_portfolio` - Get portfolio configurations
+
+### Quality Management
+- `sonarqube_quality_gate` - Access quality gate settings
+- `sonarqube_metric` - Query available metrics
+- `sonarqube_rule` - Get rule definitions
+
+### User Management
+- `sonarqube_user` - Access user information
+- `sonarqube_group` - Query group configurations
+
+### Code Analysis
+- `sonarqube_language` - Get language configurations
+
 ## Module Input Variables
 
 | Name | Description | Type | Required | Default |
@@ -77,6 +111,7 @@ provider "sonarqube" {
 | quality_gates | Map of quality gates to create/manage | map(any) | no | {} |
 | users | Map of users to create/manage | map(any) | no | {} |
 | groups | Map of groups to create/manage | map(any) | no | {} |
+| portfolios | Map of portfolios to create/manage | map(any) | no | {} |
 
 ## Outputs
 

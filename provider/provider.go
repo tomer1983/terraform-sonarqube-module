@@ -32,6 +32,11 @@ func Provider() *schema.Provider {
 			"sonarqube_project":      dataSourceSonarqubeProject(),
 			"sonarqube_quality_gate": dataSourceSonarqubeQualityGate(),
 			"sonarqube_portfolio":    dataSourceSonarqubePortfolio(),
+			"sonarqube_user":         dataSourceSonarqubeUser(),
+			"sonarqube_group":        dataSourceSonarqubeGroup(),
+			"sonarqube_metric":       dataSourceSonarqubeMetric(),
+			"sonarqube_language":     dataSourceSonarqubeLanguage(),
+			"sonarqube_rule":         dataSourceSonarqubeRule(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
