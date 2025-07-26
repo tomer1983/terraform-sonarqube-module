@@ -1,8 +1,9 @@
 test:
-	go test -v ./... -race -cover
+	cd provider && go test -v ./... -race -cover
+	cd test && go test -v ./... -race -cover
 
 test-acc:
-	TF_ACC=1 go test -v ./... -timeout 120m
+	cd provider && TF_ACC=1 go test -v ./... -timeout 120m
 
 build:
 	go build -v ./...

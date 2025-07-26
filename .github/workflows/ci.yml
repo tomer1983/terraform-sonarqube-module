@@ -43,8 +43,15 @@ jobs:
 
     - name: Run Tests
       run: |
+        # Test provider
+        cd provider
         go mod download
-        make test
+        go test -v ./... -race -cover
+        
+        # Test integration tests
+        cd ../test
+        go mod download
+        go test -v ./... -race -cover
       env:
         SONAR_HOST_URL: http://localhost:9000
         SONAR_TOKEN: admin
