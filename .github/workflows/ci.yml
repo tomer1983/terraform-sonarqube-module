@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    services:
+      sonarqube:
+        image: sonarqube:8.9-community
+        ports:
+          - 9000:9000
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0
+
+    - name: Wait for SonarQube
+      run: |
+        timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9000)" != "200" ]]; do sleep 5; done'
+
+    - name: Run Tests
+      run: make test
+      env:
+        SONAR_HOST_URL: http://localhost:9000
+        SONAR_TOKEN: admin
+
+    - name: Run TFLint
+      uses: terraform-linters/setup-tflint@v1
+      with:
+        tflint_version: v0.29.0
+
+    - name: Lint Terraform
+      run: |
+        tflint
+        terraform fmt -check
+        terraform validate
+
+    - name: Generate Documentation
+      run: |
+        terraform-docs markdown table . > DOCUMENTATION.md
+        if [[ $(git status --porcelain DOCUMENTATION.md) ]]; then
+          echo "Documentation is out of date. Please run 'terraform-docs markdown table . > DOCUMENTATION.md' and commit the changes."
+          exit 1
+        fi
