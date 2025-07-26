@@ -26,8 +26,13 @@ func Provider() *schema.Provider {
 			"sonarqube_qualitygate":  resourceSonarqubeQualityGate(),
 			"sonarqube_user":         resourceSonarqubeUser(),
 			"sonarqube_group":        resourceSonarqubeGroup(),
+			"sonarqube_portfolio":    resourceSonarqubePortfolio(),
 		},
-		DataSourcesMap: map[string]*schema.Resource{},
+		DataSourcesMap: map[string]*schema.Resource{
+			"sonarqube_project":      dataSourceSonarqubeProject(),
+			"sonarqube_quality_gate": dataSourceSonarqubeQualityGate(),
+			"sonarqube_portfolio":    dataSourceSonarqubePortfolio(),
+		},
 		ConfigureContextFunc: providerConfigure,
 	}
 }
