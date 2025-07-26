@@ -3,9 +3,13 @@ module github.com/tomer1983/terraform-sonarqube-module
 go 1.20
 
 require (
+	github.com/gruntwork-io/terratest v0.43.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.28.0
 	github.com/hashicorp/go-retryablehttp v0.7.4
 	github.com/stretchr/testify v1.8.4
+	golang.org/x/crypto v0.12.0
+	golang.org/x/net v0.14.0
+	golang.org/x/text v0.12.0
 )
 
 require (

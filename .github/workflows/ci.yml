@@ -36,11 +36,15 @@ jobs:
 
     - name: Initialize Go Module
       run: |
+        go clean -modcache
         go mod tidy
         cd provider && go mod tidy
+        cd ../test && go mod init github.com/tomer1983/terraform-sonarqube-module/test && go mod tidy
 
     - name: Run Tests
-      run: make test
+      run: |
+        go mod download
+        make test
       env:
         SONAR_HOST_URL: http://localhost:9000
         SONAR_TOKEN: admin
