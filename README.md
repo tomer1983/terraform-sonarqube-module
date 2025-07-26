@@ -1,4 +1,4 @@
-# Terraform SonarQube API Management Module
+# Terraform SonarQube API Management Module.
 
 [![Build Status](https://github.com/tomer1983/terraform-sonarqube-module/workflows/CI/badge.svg)](https://github.com/tomer1983/terraform-sonarqube-module/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
