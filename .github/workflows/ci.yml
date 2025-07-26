@@ -36,10 +36,25 @@ jobs:
 
     - name: Initialize Go Modules
       run: |
+        # Clean and initialize modules
         go clean -modcache
+        rm -f go.sum
         go mod tidy
-        cd provider && go mod tidy
-        cd ../test && go mod tidy
+        
+        # Clean and initialize provider module
+        cd provider
+        rm -f go.sum
+        go mod tidy
+        
+        # Clean and initialize test module
+        cd ../test
+        rm -f go.sum
+        go mod tidy
+        
+        # Update workspace
+        cd ..
+        go work init
+        go work use . ./provider ./test
 
     - name: Run Tests
       run: |
